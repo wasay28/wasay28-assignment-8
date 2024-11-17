@@ -97,7 +97,6 @@ def do_experiments(start, end, step_num):
         Z = model.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
         Z = Z.reshape(xx.shape)
 
-
         # Plot fading red and blue contours for confidence levels
         contour_levels = [0.7, 0.8, 0.9]
         alphas = [0.05, 0.1, 0.15]  # Increasing opacity for higher confidence levels
@@ -134,24 +133,28 @@ def do_experiments(start, end, step_num):
 
     # Implement: Plot beta0
     plt.subplot(3, 3, 1)
+    plt.plot(shift_distances, beta0_list, 'b-', marker='o')
     plt.title("Shift Distance vs Beta0")
     plt.xlabel("Shift Distance")
     plt.ylabel("Beta0")
 
     # Implement: Plot beta1
     plt.subplot(3, 3, 2)
+    plt.plot(shift_distances, beta1_list, 'r-', marker='o')
     plt.title("Shift Distance vs Beta1 (Coefficient for x1)")
     plt.xlabel("Shift Distance")
     plt.ylabel("Beta1")
 
     # Implement: Plot beta2
     plt.subplot(3, 3, 3)
+    plt.plot(shift_distances, beta2_list, 'g-', marker='o')
     plt.title("Shift Distance vs Beta2 (Coefficient for x2)")
     plt.xlabel("Shift Distance")
     plt.ylabel("Beta2")
 
     # Implement: Plot beta1 / beta2 (Slope)
     plt.subplot(3, 3, 4)
+    plt.plot(shift_distances, slope_list, 'm-', marker='o')
     plt.title("Shift Distance vs Beta1 / Beta2 (Slope)")
     plt.xlabel("Shift Distance")
     plt.ylabel("Beta1 / Beta2")
@@ -159,18 +162,21 @@ def do_experiments(start, end, step_num):
 
     # Implement: Plot beta0 / beta2 (Intercept ratio)
     plt.subplot(3, 3, 5)
+    plt.plot(shift_distances, [-b0/b2 for b0, b2 in zip(beta0_list, beta2_list)], 'c-', marker='o')
     plt.title("Shift Distance vs Beta0 / Beta2 (Intercept Ratio)")
     plt.xlabel("Shift Distance")
     plt.ylabel("Beta0 / Beta2")
 
     # Plot logistic loss
     plt.subplot(3, 3, 6)
+    plt.plot(shift_distances, loss_list, 'k-', marker='o')
     plt.title("Shift Distance vs Logistic Loss")
     plt.xlabel("Shift Distance")
     plt.ylabel("Logistic Loss")
 
     # Implement: Plot margin width
     plt.subplot(3, 3, 7)
+    plt.plot(shift_distances, margin_widths, 'y-', marker='o')
     plt.title("Shift Distance vs Margin Width")
     plt.xlabel("Shift Distance")
     plt.ylabel("Margin Width")
