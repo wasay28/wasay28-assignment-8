@@ -52,7 +52,22 @@ def do_experiments(start, end, step_num):
     for i, distance in enumerate(shift_distances, 1):
         X, y = generate_ellipsoid_clusters(distance=distance)
         # Implement: record all necessary information for each distance
-        raise NotImplementedError("Record all necessary information for each distance")
+        model, beta0, beta1, beta2 = fit_logistic_regression(X, y)
+
+        # Calculate slope and intercept of decision boundary
+        slope = -beta1 / beta2
+        intercept = -beta0 / beta2
+
+         # Record parameters
+        beta0_list.append(beta0)
+        beta1_list.append(beta1)
+        beta2_list.append(beta2)
+        slope_list.append(slope)
+        intercept_list.append(intercept)
+
+        # Calculate and store logistic loss
+        loss = calculate_logistic_loss(model, X, y)
+        loss_list.append(loss)
 
         # Implement: Plot the dataset
         plt.subplot(n_rows, n_cols, i)
