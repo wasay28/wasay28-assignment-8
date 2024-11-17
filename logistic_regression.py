@@ -37,6 +37,15 @@ def fit_logistic_regression(X, y):
     beta1, beta2 = model.coef_[0]
     return model, beta0, beta1, beta2
 
+def calculate_logistic_loss(model, X, y):
+    # Calculate predicted probabilities
+    y_pred_proba = model.predict_proba(X)
+    # Calculate logistic loss (cross-entropy)
+    epsilon = 1e-15  # Small constant to avoid log(0)
+    return -np.mean(y * np.log(y_pred_proba[:, 1] + epsilon) + 
+                   (1 - y) * np.log(1 - y_pred_proba[:, 1] + epsilon))
+
+
 def do_experiments(start, end, step_num):
     # Set up experiment parameters
     shift_distances = np.linspace(start, end, step_num)  # Range of shift distances
