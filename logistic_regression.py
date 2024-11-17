@@ -74,16 +74,15 @@ def do_experiments(start, end, step_num):
         slope_list.append(slope)
         intercept_list.append(intercept)
 
-        # Calculate and store logistic loss
+        # Implement: Plot the dataset
+        plt.subplot(n_rows, n_cols, i)
+        plt.scatter(X[y == 0][:, 0], X[y == 0][:, 1], c='blue', label='Class 0')
+        plt.scatter(X[y == 1][:, 0], X[y == 1][:, 1], c='red', label='Class 1')
+
+        # Implement: Calculate and store logistic loss
         loss = calculate_logistic_loss(model, X, y)
         loss_list.append(loss)
 
-        # Implement: Plot the dataset
-        plt.subplot(n_rows, n_cols, i)
-        raise NotImplementedError("Plot the dataset")
-
-        # Implement: Calculate and store logistic loss
-        raise NotImplementedError("Calculate and store logistic loss")
         # Calculate margin width between 70% confidence contours for each class
         x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
         y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
@@ -92,7 +91,12 @@ def do_experiments(start, end, step_num):
         Z = Z.reshape(xx.shape)
 
         # Implement: Calculate decision boundary slope and intercept
-        raise NotImplementedError("Calculate and plot decision boundary slope and intercept")
+        x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+        y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+        xx, yy = np.meshgrid(np.linspace(x_min, x_max, 200), np.linspace(y_min, y_max, 200))
+        Z = model.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
+        Z = Z.reshape(xx.shape)
+
 
         # Plot fading red and blue contours for confidence levels
         contour_levels = [0.7, 0.8, 0.9]
